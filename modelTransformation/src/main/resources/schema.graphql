@@ -1,0 +1,124 @@
+scalar DateTime
+scalar Uri
+scalar Cursor
+
+type Character {
+    id: Int!
+    name: String
+    status: Status
+    species: String
+    type: String
+    gender: Gender
+    origin: Location
+    location: Location
+    image: Uri
+    episodes: [Episode!]
+    created: DateTime
+}
+
+type Episode {
+    id: Int!
+    name: String
+    air_date: String
+    code: String
+    characters: [Character!]
+    created: DateTime
+}
+
+type Location {
+    id: Int!
+    name: String
+    type: String
+    dimension: String
+    residents: [Character!]
+    created: DateTime
+}
+
+enum Status {
+    ALIVE
+    DEAD
+    UNKNOWN
+}
+
+enum Gender {
+    FEMALE
+    MALE
+    GENDERLESS
+    UNKNOWN
+}
+
+type CharacterConnection {
+    edges: [CharacterEdge!]!
+    pageInfo: PageInfo!
+}
+
+type EpisodeConnection {
+    edges: [EpisodeEdge!]!
+    pageInfo: PageInfo!
+}
+
+type LocationConnection {
+    edges: [LocationEdge!]!
+    pageInfo: PageInfo!
+}
+
+type CharacterEdge {
+    cursor: Cursor!
+    node: Character!
+}
+
+type EpisodeEdge {
+    cursor: Cursor!
+    node: Episode!
+}
+
+type LocationEdge {
+    cursor: Cursor!
+    node: Location!
+}
+
+type PageInfo {
+    startCursor: Cursor!
+    endCursor: Cursor!
+    hasPrevious: Boolean!
+    hasNext: Boolean!
+}
+
+type Query {
+    characters(
+        first: Int
+        after: Cursor
+        last: Int
+        before: Cursor
+    ): CharacterConnection
+    character(id: Int!): Character
+    episodes(
+        first: Int
+        after: Cursor
+        last: Int
+        before: Cursor
+    ): EpisodeConnection
+    episode(id: Int!): Episode
+    locations(
+        first: Int
+        after: Cursor
+        last: Int
+        before: Cursor
+    ): LocationConnection
+    location(id: Int!): Location
+}
+
+enum ErrorCode {
+    Success
+    NotFound
+    MissingData
+    UpstreamError
+    NotImplemented
+    Unknown
+}
+
+enum ErrorClassification {
+    Data
+    UpstreamError
+    Unknown
+}

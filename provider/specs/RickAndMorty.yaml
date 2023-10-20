@@ -1,0 +1,598 @@
+openapi: 3.0.0
+info:
+  title: Rick and Morty API
+  description: >-
+    # Introduction
+  version: 1.0.0
+servers:
+  - url: https://rickandmortyapi.com/api
+paths:
+  /character:
+    get:
+      tags:
+        - Character
+      summary: Filter characters
+      description: >-
+        [Character](https://rickandmortyapi.com/documentation/#character): used to get all the characters or apply a filter.
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+          description: |
+            which page of results to return.
+        - name: name
+          in: query
+          schema:
+            type: string
+          description: |
+            filter by the given name.
+        - name: status
+          in: query
+          schema:
+            type: string
+          description: |
+            filter by the given status.
+        - name: species
+          in: query
+          schema:
+            type: string
+          description: |
+            filter by the given species.
+        - name: type
+          in: query
+          schema:
+            type: string
+          description: |
+            filter by the given type.
+        - name: gender
+          in: query
+          schema:
+            type: string
+          description: |
+            filter by the given gender.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/page_character'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '500':
+          description: Server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+  /character/{id}:
+    get:
+      tags:
+        - Character
+      summary: Get a single character
+      description: >-
+        [Character](https://rickandmortyapi.com/documentation/#character): used
+        to get all the characters.
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true
+          example: '1'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/character'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '500':
+          description: Server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+  /character/{ids}:
+    get:
+      tags:
+        - Character
+      summary: Get multiple characters
+      description: >-
+        [Character](https://rickandmortyapi.com/documentation/#character): used
+        to get all the characters.
+      parameters:
+        - name: ids
+          in: path
+          required: true
+          schema:
+            type: array
+            items:
+              type: integer
+          example: '1,2,3'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/characters'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '500':
+          description: Server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+  /location:
+    get:
+      tags:
+        - Location
+      summary: Filter locations
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+          description: |
+            which page of results to return.
+        - name: name
+          in: query
+          schema:
+            type: string
+          description: |
+            filter by the given name.
+        - name: type
+          in: query
+          schema:
+            type: string
+          description: |
+            filter by the given type.
+        - name: dimension
+          in: query
+          schema:
+            type: string
+          description: |
+            filter by the given dimension.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/page_location'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '500':
+          description: Server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+  /location/{id}:
+    get:
+      tags:
+        - Location
+      summary: Get single location
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true
+          example: '1'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/location'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '500':
+          description: Server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+  /location/{ids}:
+    get:
+      tags:
+        - Location
+      summary: Get multiple locations
+      parameters:
+        - name: ids
+          in: path
+          required: true
+          schema:
+            type: array
+            items:
+              type: integer
+          example: '1,2,3'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/locations'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '500':
+          description: Server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+  /episode:
+    get:
+      tags:
+        - Episode
+      summary: Filter episodes
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+          description: |
+            which page of results to return.
+        - name: name
+          in: query
+          schema:
+            type: string
+          description: |
+            filter by the given name.
+        - name: episode
+          in: query
+          schema:
+            type: string
+          description: |
+            filter by the given episode code.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/page_episode'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '500':
+          description: Server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+  /episode/{id}:
+    get:
+      tags:
+        - Episode
+      summary: Get a single episode
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true
+          example: '1'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/episode'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '500':
+          description: Server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+  /episode/{ids}:
+    get:
+      tags:
+        - Episode
+      summary: Get multiple episodes
+      parameters:
+        - name: ids
+          in: path
+          required: true
+          schema:
+            type: array
+            items:
+              type: integer
+          example: '1,2,3'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/episodes'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        '500':
+          description: Server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+components:
+  schemas:
+    location_info:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "Earth"
+        url:
+          type: string
+          format: uri
+          example: "https://rickandmortyapi.com/api/location/1"
+    error:
+      type: object
+      properties:
+        error:
+          type: string
+          example: "Not found"
+          description: |
+            Information about the error.
+    page_info:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 826
+        pages:
+          type: integer
+          example: 42
+        next:
+          type: string
+          format: uri
+          example: "https://rickandmortyapi.com/api/<character/location/episode>/?page=2"
+        prev:
+          type: string
+          format: uri
+          example: null
+    page_character:
+      type: object
+      properties:
+        info:
+          $ref: '#/components/schemas/page_info'
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/character'
+    page_location:
+      type: object
+      properties:
+        info:
+          $ref: '#/components/schemas/page_info'
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/location'
+    page_episode:
+      type: object
+      properties:
+        info:
+          $ref: '#/components/schemas/page_info'
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/episode'
+    characters:
+      type: array
+      items:
+        $ref: '#/components/schemas/character'
+    character:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: integer
+          format: int
+          example: 2
+          description: |
+            The id of the character.
+        name:
+          type: string
+          example: "Morty Smith"
+          description: |
+            The name of the character.
+        status:
+          type: string
+          enum: [Alive, Dead, unknown]
+          example: "Alive"
+          description: |
+            The status of the character ('Alive', 'Dead' or 'unknown').
+        species:
+          type: string
+          example: "Human"
+          description: |
+            The species of the character.
+        type:
+          type: string
+          example: ""
+          description: |
+            The type or subspecies of the character.
+        gender:
+          type: string
+          enum: [Female, Male, Genderless, unknown]
+          example: "Male"
+          description: |
+            The gender of the character ('Female', 'Male', 'Genderless' or 'unknown').
+        origin:
+          $ref: '#/components/schemas/location_info'
+        location:
+          $ref: '#/components/schemas/location_info'
+        image:
+          type: string
+          format: uri
+          example: "https://rickandmortyapi.com/api/character/avatar/2.jpeg"
+          description: |
+            Link to the character's image. All images are 300x300px and most are medium shots or portraits since they are intended to be used as avatars.
+        episode:
+          type: array
+          items:
+            type: string
+            format: uri
+          example:
+            - "https://rickandmortyapi.com/api/episode/1"
+            - "https://rickandmortyapi.com/api/episode/2"
+          description: |
+            List of episodes in which this character appeared.
+        url:
+          type: string
+          format: uri
+          example: "https://rickandmortyapi.com/api/character/2"
+          description: |
+            Link to the character's own URL endpoint.
+        created:
+          type: string
+          format: date-time
+          description: |
+            Time at which the character was created in the database
+    locations:
+      type: array
+      items:
+        $ref: '#/components/schemas/location'
+    location:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: integer
+          example: 2
+          description: |
+            The id of the location.
+        name:
+          type: string
+          example: "Abadango"
+          description: |
+            The name of the location.
+        type:
+          type: string
+          example: "Cluster"
+          description: |
+            The type of the location.
+        dimension:
+          type: string
+          example: "unknown"
+          description: |
+            The dimension in which the location is located.
+        residents:
+          type: array
+          items:
+            type: string
+            format: uri
+          example:
+            - "https://rickandmortyapi.com/api/character/6"
+          description: |
+            List of character who have been last seen in the location.
+        url:
+          type: string
+          format: uri
+          example: "https://rickandmortyapi.com/api/location/2"
+          description: |
+            Link to the location's own URL endpoint.
+        created:
+          type: string
+          format: date-time
+          description: |
+            Time at which the location was created in the database
+    episodes:
+      type: array
+      items:
+        $ref: '#/components/schemas/episode'
+    episode:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: integer
+          example: 28
+          description: |
+            The id of the episode.
+        name:
+          type: string
+          example: "The Ricklantis Mixup"
+          description: |
+            The name of the episode.
+        air_date:
+          type: string
+          example: "September 10, 2017"
+          description: |
+            The air date of the episode.
+        episode:
+          type: string
+          example: "S03E07"
+          description: |
+            The code of the episode.
+        characters:
+          type: array
+          items:
+            type: string
+            format: uri
+          example:
+            - "https://rickandmortyapi.com/api/character/1"
+            - "https://rickandmortyapi.com/api/character/2"
+          description: |
+            List of characters who have been seen in the episode.
+        url:
+          type: string
+          format: uri
+          example: "https://rickandmortyapi.com/api/episode/28"
+          description: |
+            Link to the episode's own URL endpoint.
+        created:
+          type: string
+          format: date-time
+          description: |
+            Time at which the episode was created in the database

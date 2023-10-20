@@ -1,0 +1,6 @@
+**/.openapi-generator-ignore
+**/build.gradle
+**/gradlew*
+**/*.md
+**/settings.gradle
+**/gradle/

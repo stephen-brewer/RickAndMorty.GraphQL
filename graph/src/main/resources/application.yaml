@@ -1,0 +1,7 @@
+
+provider:
+  hostname: "https://rickandmortyapi.com/api"
+dgs:
+  graphql:
+    schema-locations:
+      - classpath*:schema.graphql
